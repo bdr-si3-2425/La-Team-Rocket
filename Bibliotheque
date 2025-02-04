@@ -1,0 +1,1263 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 17.2
+-- Dumped by pg_dump version 17.2
+
+-- Started on 2025-02-04 10:14:32
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 222 (class 1259 OID 16581)
+-- Name: abonnes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.abonnes (
+    id_abonne integer NOT NULL,
+    nom character varying(50),
+    prenom character varying(50),
+    email character varying(100),
+    telephone character varying(20),
+    id_adresse integer
+);
+
+
+ALTER TABLE public.abonnes OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16580)
+-- Name: abonnes_id_abonne_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.abonnes_id_abonne_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.abonnes_id_abonne_seq OWNER TO postgres;
+
+--
+-- TOC entry 4983 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: abonnes_id_abonne_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.abonnes_id_abonne_seq OWNED BY public.abonnes.id_abonne;
+
+
+--
+-- TOC entry 218 (class 1259 OID 16562)
+-- Name: adresses; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.adresses (
+    id_adresse integer NOT NULL,
+    adresse character varying(255),
+    region character varying(100)
+);
+
+
+ALTER TABLE public.adresses OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 16561)
+-- Name: adresses_id_adresse_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.adresses_id_adresse_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.adresses_id_adresse_seq OWNER TO postgres;
+
+--
+-- TOC entry 4984 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: adresses_id_adresse_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.adresses_id_adresse_seq OWNED BY public.adresses.id_adresse;
+
+
+--
+-- TOC entry 220 (class 1259 OID 16569)
+-- Name: bibliotheques; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.bibliotheques (
+    id_bibliotheque integer NOT NULL,
+    nom character varying(100),
+    id_adresse integer
+);
+
+
+ALTER TABLE public.bibliotheques OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16568)
+-- Name: bibliotheques_id_bibliotheque_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.bibliotheques_id_bibliotheque_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.bibliotheques_id_bibliotheque_seq OWNER TO postgres;
+
+--
+-- TOC entry 4985 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: bibliotheques_id_bibliotheque_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.bibliotheques_id_bibliotheque_seq OWNED BY public.bibliotheques.id_bibliotheque;
+
+
+--
+-- TOC entry 224 (class 1259 OID 16595)
+-- Name: collections; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.collections (
+    id_collection integer NOT NULL,
+    nom character varying(100),
+    editeur character varying(100),
+    annee_edition integer
+);
+
+
+ALTER TABLE public.collections OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16594)
+-- Name: collections_id_collection_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.collections_id_collection_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.collections_id_collection_seq OWNER TO postgres;
+
+--
+-- TOC entry 4986 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: collections_id_collection_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.collections_id_collection_seq OWNED BY public.collections.id_collection;
+
+
+--
+-- TOC entry 238 (class 1259 OID 16717)
+-- Name: emplacements; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.emplacements (
+    id_emplacement integer NOT NULL,
+    id_bibliotheque integer,
+    localisation character varying(100)
+);
+
+
+ALTER TABLE public.emplacements OWNER TO postgres;
+
+--
+-- TOC entry 237 (class 1259 OID 16716)
+-- Name: emplacements_id_emplacement_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.emplacements_id_emplacement_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.emplacements_id_emplacement_seq OWNER TO postgres;
+
+--
+-- TOC entry 4987 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: emplacements_id_emplacement_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.emplacements_id_emplacement_seq OWNED BY public.emplacements.id_emplacement;
+
+
+--
+-- TOC entry 234 (class 1259 OID 16686)
+-- Name: evenements; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.evenements (
+    id_evenement integer NOT NULL,
+    titre character varying(100),
+    description text,
+    date_evenement date,
+    id_bibliotheque integer
+);
+
+
+ALTER TABLE public.evenements OWNER TO postgres;
+
+--
+-- TOC entry 233 (class 1259 OID 16685)
+-- Name: evenements_id_evenement_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.evenements_id_evenement_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.evenements_id_evenement_seq OWNER TO postgres;
+
+--
+-- TOC entry 4988 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: evenements_id_evenement_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.evenements_id_evenement_seq OWNED BY public.evenements.id_evenement;
+
+
+--
+-- TOC entry 240 (class 1259 OID 16730)
+-- Name: genres; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.genres (
+    id_genre integer NOT NULL,
+    isbn character varying(13),
+    genre character varying(50)
+);
+
+
+ALTER TABLE public.genres OWNER TO postgres;
+
+--
+-- TOC entry 239 (class 1259 OID 16729)
+-- Name: genres_id_genre_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.genres_id_genre_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.genres_id_genre_seq OWNER TO postgres;
+
+--
+-- TOC entry 4989 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: genres_id_genre_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.genres_id_genre_seq OWNED BY public.genres.id_genre;
+
+
+--
+-- TOC entry 226 (class 1259 OID 16602)
+-- Name: ouvrages; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.ouvrages (
+    id_ouvrage integer NOT NULL,
+    titre character varying(255),
+    auteur character varying(100),
+    categorie character varying(100),
+    date_publication date,
+    isbn character varying(13),
+    id_collection integer
+);
+
+
+ALTER TABLE public.ouvrages OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 16601)
+-- Name: ouvrages_id_ouvrage_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.ouvrages_id_ouvrage_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.ouvrages_id_ouvrage_seq OWNER TO postgres;
+
+--
+-- TOC entry 4990 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: ouvrages_id_ouvrage_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.ouvrages_id_ouvrage_seq OWNED BY public.ouvrages.id_ouvrage;
+
+
+--
+-- TOC entry 236 (class 1259 OID 16700)
+-- Name: participation_evenements; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.participation_evenements (
+    id_participation integer NOT NULL,
+    id_abonne integer,
+    id_evenement integer
+);
+
+
+ALTER TABLE public.participation_evenements OWNER TO postgres;
+
+--
+-- TOC entry 235 (class 1259 OID 16699)
+-- Name: participation_evenements_id_participation_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.participation_evenements_id_participation_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.participation_evenements_id_participation_seq OWNER TO postgres;
+
+--
+-- TOC entry 4991 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: participation_evenements_id_participation_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.participation_evenements_id_participation_seq OWNED BY public.participation_evenements.id_participation;
+
+
+--
+-- TOC entry 228 (class 1259 OID 16628)
+-- Name: prets; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.prets (
+    id_pret integer NOT NULL,
+    id_abonne integer,
+    id_ouvrage integer,
+    date_emprunt date,
+    date_retour date,
+    date_retour_effective date
+);
+
+
+ALTER TABLE public.prets OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 16627)
+-- Name: prets_id_pret_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.prets_id_pret_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.prets_id_pret_seq OWNER TO postgres;
+
+--
+-- TOC entry 4992 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: prets_id_pret_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.prets_id_pret_seq OWNED BY public.prets.id_pret;
+
+
+--
+-- TOC entry 230 (class 1259 OID 16645)
+-- Name: reservations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.reservations (
+    id_reservation integer NOT NULL,
+    id_abonne integer,
+    id_ouvrage integer,
+    date_reservation date,
+    etat_reservation character varying(50) DEFAULT 'en attente'::character varying
+);
+
+
+ALTER TABLE public.reservations OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 16644)
+-- Name: reservations_id_reservation_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.reservations_id_reservation_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.reservations_id_reservation_seq OWNER TO postgres;
+
+--
+-- TOC entry 4993 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: reservations_id_reservation_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.reservations_id_reservation_seq OWNED BY public.reservations.id_reservation;
+
+
+--
+-- TOC entry 232 (class 1259 OID 16663)
+-- Name: transferts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.transferts (
+    id_transfert integer NOT NULL,
+    id_ouvrage integer,
+    bibliotheque_origine integer,
+    bibliotheque_destination integer,
+    date_emission date,
+    date_reception date,
+    etat_transfert character varying(50) DEFAULT 'en attente'::character varying
+);
+
+
+ALTER TABLE public.transferts OWNER TO postgres;
+
+--
+-- TOC entry 231 (class 1259 OID 16662)
+-- Name: transferts_id_transfert_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.transferts_id_transfert_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.transferts_id_transfert_seq OWNER TO postgres;
+
+--
+-- TOC entry 4994 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: transferts_id_transfert_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.transferts_id_transfert_seq OWNED BY public.transferts.id_transfert;
+
+
+--
+-- TOC entry 4752 (class 2604 OID 16584)
+-- Name: abonnes id_abonne; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.abonnes ALTER COLUMN id_abonne SET DEFAULT nextval('public.abonnes_id_abonne_seq'::regclass);
+
+
+--
+-- TOC entry 4750 (class 2604 OID 16565)
+-- Name: adresses id_adresse; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.adresses ALTER COLUMN id_adresse SET DEFAULT nextval('public.adresses_id_adresse_seq'::regclass);
+
+
+--
+-- TOC entry 4751 (class 2604 OID 16572)
+-- Name: bibliotheques id_bibliotheque; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bibliotheques ALTER COLUMN id_bibliotheque SET DEFAULT nextval('public.bibliotheques_id_bibliotheque_seq'::regclass);
+
+
+--
+-- TOC entry 4753 (class 2604 OID 16598)
+-- Name: collections id_collection; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.collections ALTER COLUMN id_collection SET DEFAULT nextval('public.collections_id_collection_seq'::regclass);
+
+
+--
+-- TOC entry 4762 (class 2604 OID 16720)
+-- Name: emplacements id_emplacement; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.emplacements ALTER COLUMN id_emplacement SET DEFAULT nextval('public.emplacements_id_emplacement_seq'::regclass);
+
+
+--
+-- TOC entry 4760 (class 2604 OID 16689)
+-- Name: evenements id_evenement; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.evenements ALTER COLUMN id_evenement SET DEFAULT nextval('public.evenements_id_evenement_seq'::regclass);
+
+
+--
+-- TOC entry 4763 (class 2604 OID 16733)
+-- Name: genres id_genre; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genres ALTER COLUMN id_genre SET DEFAULT nextval('public.genres_id_genre_seq'::regclass);
+
+
+--
+-- TOC entry 4754 (class 2604 OID 16605)
+-- Name: ouvrages id_ouvrage; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ouvrages ALTER COLUMN id_ouvrage SET DEFAULT nextval('public.ouvrages_id_ouvrage_seq'::regclass);
+
+
+--
+-- TOC entry 4761 (class 2604 OID 16703)
+-- Name: participation_evenements id_participation; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.participation_evenements ALTER COLUMN id_participation SET DEFAULT nextval('public.participation_evenements_id_participation_seq'::regclass);
+
+
+--
+-- TOC entry 4755 (class 2604 OID 16631)
+-- Name: prets id_pret; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.prets ALTER COLUMN id_pret SET DEFAULT nextval('public.prets_id_pret_seq'::regclass);
+
+
+--
+-- TOC entry 4756 (class 2604 OID 16648)
+-- Name: reservations id_reservation; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reservations ALTER COLUMN id_reservation SET DEFAULT nextval('public.reservations_id_reservation_seq'::regclass);
+
+
+--
+-- TOC entry 4758 (class 2604 OID 16666)
+-- Name: transferts id_transfert; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transferts ALTER COLUMN id_transfert SET DEFAULT nextval('public.transferts_id_transfert_seq'::regclass);
+
+
+--
+-- TOC entry 4959 (class 0 OID 16581)
+-- Dependencies: 222
+-- Data for Name: abonnes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.abonnes (id_abonne, nom, prenom, email, telephone, id_adresse) FROM stdin;
+1	Dupont	Jean	jean.dupont@email.com	0612345678	101
+2	Martin	Sophie	sophie.martin@email.com	0623456789	102
+3	Lemoine	Pierre	pierre.lemoine@email.com	0634567890	103
+4	Bernard	Claire	claire.bernard@email.com	0645678901	104
+5	Robert	Luc	luc.robert@email.com	0656789012	105
+6	Petit	Emma	emma.petit@email.com	0667890123	106
+7	Durand	Hugo	hugo.durand@email.com	0678901234	107
+8	Lefevre	Alice	alice.lefevre@email.com	0689012345	108
+9	Morel	Louis	louis.morel@email.com	0690123456	101
+10	Simon	Julie	julie.simon@email.com	0610234567	102
+11	Laurent	Thomas	thomas.laurent@email.com	0621345678	103
+12	Girard	Camille	camille.girard@email.com	0632456789	104
+13	Bertrand	Antoine	antoine.bertrand@email.com	0643567890	105
+14	Lemoine	Eva	eva.lemoine@email.com	0654678901	106
+15	Roux	Nicolas	nicolas.roux@email.com	0665789012	107
+16	Fontaine	Léa	lea.fontaine@email.com	0676890123	108
+17	Chevalier	Paul	paul.chevalier@email.com	0687901234	101
+18	Barbier	Manon	manon.barbier@email.com	0698012345	102
+19	Garnier	David	david.garnier@email.com	0619123456	103
+20	Lemoine	Sarah	sarah.lemoine@email.com	0620234567	104
+\.
+
+
+--
+-- TOC entry 4955 (class 0 OID 16562)
+-- Dependencies: 218
+-- Data for Name: adresses; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.adresses (id_adresse, adresse, region) FROM stdin;
+101	10 Rue des Livres	Île-de-France
+102	25 Avenue du Savoir	Auvergne-Rhône-Alpes
+103	3 Place de la Lecture	Provence-Alpes-Côte d Azur
+104	8 Boulevard des Études	Nouvelle-Aquitaine
+105	15 Chemin des Pages	Occitanie
+106	30 Allée des Romans	Grand Est
+107	5 Impasse du Livre	Bretagne
+108	12 Quai des Bibliophiles	Normandie
+\.
+
+
+--
+-- TOC entry 4957 (class 0 OID 16569)
+-- Dependencies: 220
+-- Data for Name: bibliotheques; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.bibliotheques (id_bibliotheque, nom, id_adresse) FROM stdin;
+1	Bibliothèque Centrale	101
+2	Bibliothèque de l Université	102
+3	Bibliothèque de la Ville	103
+4	Bibliothèque du Quartier Nord	104
+5	Bibliothèque du Quartier Sud	105
+6	Bibliothèque du Parc	106
+7	Bibliothèque du Centre	107
+8	Bibliothèque de la Plage	108
+\.
+
+
+--
+-- TOC entry 4961 (class 0 OID 16595)
+-- Dependencies: 224
+-- Data for Name: collections; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.collections (id_collection, nom, editeur, annee_edition) FROM stdin;
+1	Classiques de la SF	Gallimard	2001
+2	Explorations Fantastiques	Hachette	1998
+3	Histoires et Légendes	Flammarion	2005
+4	Grands Auteurs Français	Seuil	2010
+5	Anticipation et Futurisme	Denoël	2020
+6	Romans Aventureux	Actes Sud	1995
+7	Littérature Contemporaine	Folio	2015
+8	Philosophie et Société	PUF	2018
+9	Épopées Modernes	Albin Michel	2012
+10	Récits Post-Apocalyptiques	Bragelonne	2017
+\.
+
+
+--
+-- TOC entry 4975 (class 0 OID 16717)
+-- Dependencies: 238
+-- Data for Name: emplacements; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.emplacements (id_emplacement, id_bibliotheque, localisation) FROM stdin;
+1	1	Rayon A - Étude
+2	2	Rayon B - Littérature
+3	3	Rayon C - Science-Fiction
+4	4	Rayon D - BD et Comics
+5	5	Rayon E - Philosophie
+6	6	Rayon F - Histoire
+7	7	Rayon G - Science
+8	8	Rayon H - Romans
+9	1	Rayon I - Poésie
+10	2	Rayon J - Fantasy
+11	3	Rayon K - Policier
+12	4	Rayon L - Essais
+13	5	Rayon M - Biographies
+14	6	Rayon N - Géographie
+15	7	Rayon O - Langues
+16	8	Rayon P - Théâtre
+17	1	Rayon Q - Art
+18	2	Rayon R - Musique
+19	3	Rayon S - Cinéma
+20	4	Rayon T - Informatique
+21	5	Rayon U - Médecine
+22	6	Rayon V - Sport
+23	7	Rayon W - Voyages
+24	8	Rayon X - Nature
+25	1	Rayon Y - Enfants
+\.
+
+
+--
+-- TOC entry 4971 (class 0 OID 16686)
+-- Dependencies: 234
+-- Data for Name: evenements; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.evenements (id_evenement, titre, description, date_evenement, id_bibliotheque) FROM stdin;
+1	Rencontre avec un auteur	Séance de dédicace et discussion avec un écrivain local.	2025-03-10	1
+2	Atelier d’écriture	Un atelier pour améliorer ses compétences en écriture créative.	2025-03-15	2
+3	Conférence sur l’histoire	Une conférence sur l’histoire médiévale et ses impacts.	2025-03-20	3
+4	Club de lecture	Discussion autour du roman du mois avec les abonnés.	2025-03-25	4
+5	Projection d’un documentaire	Diffusion d’un documentaire suivi d’un débat.	2025-03-30	5
+\.
+
+
+--
+-- TOC entry 4977 (class 0 OID 16730)
+-- Dependencies: 240
+-- Data for Name: genres; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.genres (id_genre, isbn, genre) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4963 (class 0 OID 16602)
+-- Dependencies: 226
+-- Data for Name: ouvrages; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.ouvrages (id_ouvrage, titre, auteur, categorie, date_publication, isbn, id_collection) FROM stdin;
+51	Les mystères du temps	Jean Dupont	Science-fiction	2001-06-15	9780123456011	1
+52	Voyage au centre de la Terre	Jules Verne	Aventure	1864-11-25	9780123456022	2
+53	L'horizon perdu	James Hilton	Fantasy	1933-09-01	9780123456033	3
+54	La cité des robots	Isaac Asimov	Science-fiction	1950-03-14	9780123456044	4
+55	Les racines du mal	Maurice G. Dantec	Thriller	1995-07-21	9780123456055	5
+56	Le secret des abysses	Clive Cussler	Aventure	1984-05-10	9780123456066	1
+57	La porte des enfers	Laurent Gaudé	Drame	2008-09-15	9780123456077	2
+58	L'ombre du vent	Carlos Ruiz Zafón	Mystère	2001-06-10	9780123456088	3
+59	Le silence de la mer	Vercors	Historique	1942-01-10	9780123456099	4
+60	La nuit des temps	René Barjavel	Science-fiction	1968-02-22	9780123456100	5
+61	Étoiles vagabondes	Pierre Bordage	Science-fiction	1997-05-05	9780123456111	1
+62	Les fourmis	Bernard Werber	Fantastique	1991-06-01	9780123456122	2
+63	La chute	Albert Camus	Philosophie	1956-09-01	9780123456133	3
+64	La planète des singes	Pierre Boulle	Science-fiction	1963-01-01	9780123456144	4
+65	La zone du dehors	Alain Damasio	Anticipation	1999-09-10	9780123456155	5
+66	L'étranger	Albert Camus	Classique	1942-06-10	9780123456166	1
+67	Le meilleur des mondes	Aldous Huxley	Dystopie	1932-08-30	9780123456177	2
+68	Fahrenheit 451	Ray Bradbury	Dystopie	1953-10-19	9780123456188	3
+69	1984	George Orwell	Dystopie	1949-06-08	9780123456199	4
+70	Brave New World	Aldous Huxley	Dystopie	1932-12-15	9780123456200	5
+71	La horde du contrevent	Alain Damasio	Science-fiction	2004-09-30	9780123456211	1
+72	Le cycle de Fondation	Isaac Asimov	Science-fiction	1951-06-01	9780123456222	2
+73	Dune	Frank Herbert	Science-fiction	1965-08-01	9780123456233	3
+74	Les guerriers du silence	Pierre Bordage	Science-fiction	1993-05-10	9780123456244	4
+75	Metro 2033	Dmitry Glukhovsky	Post-apocalyptique	2005-03-10	9780123456255	5
+\.
+
+
+--
+-- TOC entry 4973 (class 0 OID 16700)
+-- Dependencies: 236
+-- Data for Name: participation_evenements; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.participation_evenements (id_participation, id_abonne, id_evenement) FROM stdin;
+1	1	1
+2	2	1
+3	3	2
+4	4	2
+5	5	3
+6	6	3
+7	7	4
+8	8	4
+9	9	5
+10	10	5
+11	11	1
+12	12	2
+13	13	3
+14	14	4
+15	15	5
+\.
+
+
+--
+-- TOC entry 4965 (class 0 OID 16628)
+-- Dependencies: 228
+-- Data for Name: prets; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.prets (id_pret, id_abonne, id_ouvrage, date_emprunt, date_retour, date_retour_effective) FROM stdin;
+1	1	51	2025-01-10	2025-01-24	2025-01-22
+2	2	52	2025-01-12	2025-01-26	\N
+3	3	53	2025-01-15	2025-01-29	2025-01-28
+4	4	54	2025-01-18	2025-02-01	\N
+5	5	55	2025-01-20	2025-02-03	2025-02-02
+6	6	56	2025-01-22	2025-02-05	\N
+7	7	57	2025-01-24	2025-02-07	\N
+8	8	58	2025-01-25	2025-02-08	2025-02-07
+9	9	59	2025-01-26	2025-02-09	\N
+10	10	60	2025-01-27	2025-02-10	\N
+11	11	61	2025-01-28	2025-02-11	2025-02-10
+12	12	62	2025-01-29	2025-02-12	\N
+13	13	63	2025-01-30	2025-02-13	\N
+14	14	64	2025-01-31	2025-02-14	2025-02-13
+15	15	65	2025-02-01	2025-02-15	\N
+\.
+
+
+--
+-- TOC entry 4967 (class 0 OID 16645)
+-- Dependencies: 230
+-- Data for Name: reservations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.reservations (id_reservation, id_abonne, id_ouvrage, date_reservation, etat_reservation) FROM stdin;
+1	\N	51	2025-02-01	En attente
+2	\N	52	2025-02-02	Confirmée
+3	\N	53	2025-02-03	Annulée
+4	\N	54	2025-02-04	En attente
+5	\N	55	2025-02-05	Confirmée
+6	\N	56	2025-02-06	En attente
+7	\N	57	2025-02-07	Annulée
+8	\N	58	2025-02-08	Confirmée
+9	\N	59	2025-02-09	En attente
+10	\N	60	2025-02-10	Confirmée
+\.
+
+
+--
+-- TOC entry 4969 (class 0 OID 16663)
+-- Dependencies: 232
+-- Data for Name: transferts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.transferts (id_transfert, id_ouvrage, bibliotheque_origine, bibliotheque_destination, date_emission, date_reception, etat_transfert) FROM stdin;
+1	51	1	2	2025-02-01	2025-02-03	En cours
+2	52	2	3	2025-02-02	2025-02-04	Reçu
+3	53	3	4	2025-02-03	2025-02-05	En cours
+4	54	4	5	2025-02-04	2025-02-06	Reçu
+5	55	5	6	2025-02-05	2025-02-07	En cours
+6	56	6	7	2025-02-06	2025-02-08	Reçu
+7	57	7	8	2025-02-07	2025-02-09	En cours
+8	58	8	1	2025-02-08	2025-02-10	Reçu
+9	59	1	3	2025-02-09	2025-02-11	En cours
+10	60	2	4	2025-02-10	2025-02-12	Reçu
+\.
+
+
+--
+-- TOC entry 4995 (class 0 OID 0)
+-- Dependencies: 221
+-- Name: abonnes_id_abonne_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.abonnes_id_abonne_seq', 1, false);
+
+
+--
+-- TOC entry 4996 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: adresses_id_adresse_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.adresses_id_adresse_seq', 1, false);
+
+
+--
+-- TOC entry 4997 (class 0 OID 0)
+-- Dependencies: 219
+-- Name: bibliotheques_id_bibliotheque_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.bibliotheques_id_bibliotheque_seq', 1, false);
+
+
+--
+-- TOC entry 4998 (class 0 OID 0)
+-- Dependencies: 223
+-- Name: collections_id_collection_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.collections_id_collection_seq', 10, true);
+
+
+--
+-- TOC entry 4999 (class 0 OID 0)
+-- Dependencies: 237
+-- Name: emplacements_id_emplacement_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.emplacements_id_emplacement_seq', 1, false);
+
+
+--
+-- TOC entry 5000 (class 0 OID 0)
+-- Dependencies: 233
+-- Name: evenements_id_evenement_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.evenements_id_evenement_seq', 1, false);
+
+
+--
+-- TOC entry 5001 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: genres_id_genre_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.genres_id_genre_seq', 15, true);
+
+
+--
+-- TOC entry 5002 (class 0 OID 0)
+-- Dependencies: 225
+-- Name: ouvrages_id_ouvrage_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.ouvrages_id_ouvrage_seq', 75, true);
+
+
+--
+-- TOC entry 5003 (class 0 OID 0)
+-- Dependencies: 235
+-- Name: participation_evenements_id_participation_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.participation_evenements_id_participation_seq', 1, false);
+
+
+--
+-- TOC entry 5004 (class 0 OID 0)
+-- Dependencies: 227
+-- Name: prets_id_pret_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.prets_id_pret_seq', 1, false);
+
+
+--
+-- TOC entry 5005 (class 0 OID 0)
+-- Dependencies: 229
+-- Name: reservations_id_reservation_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.reservations_id_reservation_seq', 1, false);
+
+
+--
+-- TOC entry 5006 (class 0 OID 0)
+-- Dependencies: 231
+-- Name: transferts_id_transfert_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.transferts_id_transfert_seq', 1, false);
+
+
+--
+-- TOC entry 4769 (class 2606 OID 16588)
+-- Name: abonnes abonnes_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.abonnes
+    ADD CONSTRAINT abonnes_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 4771 (class 2606 OID 16586)
+-- Name: abonnes abonnes_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.abonnes
+    ADD CONSTRAINT abonnes_pkey PRIMARY KEY (id_abonne);
+
+
+--
+-- TOC entry 4765 (class 2606 OID 16567)
+-- Name: adresses adresses_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.adresses
+    ADD CONSTRAINT adresses_pkey PRIMARY KEY (id_adresse);
+
+
+--
+-- TOC entry 4767 (class 2606 OID 16574)
+-- Name: bibliotheques bibliotheques_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bibliotheques
+    ADD CONSTRAINT bibliotheques_pkey PRIMARY KEY (id_bibliotheque);
+
+
+--
+-- TOC entry 4773 (class 2606 OID 16600)
+-- Name: collections collections_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.collections
+    ADD CONSTRAINT collections_pkey PRIMARY KEY (id_collection);
+
+
+--
+-- TOC entry 4791 (class 2606 OID 16722)
+-- Name: emplacements emplacements_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.emplacements
+    ADD CONSTRAINT emplacements_pkey PRIMARY KEY (id_emplacement);
+
+
+--
+-- TOC entry 4787 (class 2606 OID 16693)
+-- Name: evenements evenements_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.evenements
+    ADD CONSTRAINT evenements_pkey PRIMARY KEY (id_evenement);
+
+
+--
+-- TOC entry 4793 (class 2606 OID 16735)
+-- Name: genres genres_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genres
+    ADD CONSTRAINT genres_pkey PRIMARY KEY (id_genre);
+
+
+--
+-- TOC entry 4775 (class 2606 OID 16609)
+-- Name: ouvrages ouvrages_isbn_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ouvrages
+    ADD CONSTRAINT ouvrages_isbn_key UNIQUE (isbn);
+
+
+--
+-- TOC entry 4777 (class 2606 OID 16607)
+-- Name: ouvrages ouvrages_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ouvrages
+    ADD CONSTRAINT ouvrages_pkey PRIMARY KEY (id_ouvrage);
+
+
+--
+-- TOC entry 4789 (class 2606 OID 16705)
+-- Name: participation_evenements participation_evenements_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.participation_evenements
+    ADD CONSTRAINT participation_evenements_pkey PRIMARY KEY (id_participation);
+
+
+--
+-- TOC entry 4781 (class 2606 OID 16633)
+-- Name: prets prets_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.prets
+    ADD CONSTRAINT prets_pkey PRIMARY KEY (id_pret);
+
+
+--
+-- TOC entry 4783 (class 2606 OID 16651)
+-- Name: reservations reservations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reservations
+    ADD CONSTRAINT reservations_pkey PRIMARY KEY (id_reservation);
+
+
+--
+-- TOC entry 4785 (class 2606 OID 16669)
+-- Name: transferts transferts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transferts
+    ADD CONSTRAINT transferts_pkey PRIMARY KEY (id_transfert);
+
+
+--
+-- TOC entry 4779 (class 2606 OID 16742)
+-- Name: ouvrages unique_isbn; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ouvrages
+    ADD CONSTRAINT unique_isbn UNIQUE (isbn);
+
+
+--
+-- TOC entry 4795 (class 2606 OID 16589)
+-- Name: abonnes abonnes_id_adresse_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.abonnes
+    ADD CONSTRAINT abonnes_id_adresse_fkey FOREIGN KEY (id_adresse) REFERENCES public.adresses(id_adresse) ON DELETE SET NULL;
+
+
+--
+-- TOC entry 4794 (class 2606 OID 16575)
+-- Name: bibliotheques bibliotheques_id_adresse_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bibliotheques
+    ADD CONSTRAINT bibliotheques_id_adresse_fkey FOREIGN KEY (id_adresse) REFERENCES public.adresses(id_adresse) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4807 (class 2606 OID 16723)
+-- Name: emplacements emplacements_id_bibliotheque_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.emplacements
+    ADD CONSTRAINT emplacements_id_bibliotheque_fkey FOREIGN KEY (id_bibliotheque) REFERENCES public.bibliotheques(id_bibliotheque) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4804 (class 2606 OID 16694)
+-- Name: evenements evenements_id_bibliotheque_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.evenements
+    ADD CONSTRAINT evenements_id_bibliotheque_fkey FOREIGN KEY (id_bibliotheque) REFERENCES public.bibliotheques(id_bibliotheque) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4808 (class 2606 OID 16736)
+-- Name: genres genres_isbn_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genres
+    ADD CONSTRAINT genres_isbn_fkey FOREIGN KEY (isbn) REFERENCES public.ouvrages(isbn) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4796 (class 2606 OID 16610)
+-- Name: ouvrages ouvrages_id_collection_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.ouvrages
+    ADD CONSTRAINT ouvrages_id_collection_fkey FOREIGN KEY (id_collection) REFERENCES public.collections(id_collection) ON DELETE SET NULL;
+
+
+--
+-- TOC entry 4805 (class 2606 OID 16706)
+-- Name: participation_evenements participation_evenements_id_abonne_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.participation_evenements
+    ADD CONSTRAINT participation_evenements_id_abonne_fkey FOREIGN KEY (id_abonne) REFERENCES public.abonnes(id_abonne) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4806 (class 2606 OID 16711)
+-- Name: participation_evenements participation_evenements_id_evenement_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.participation_evenements
+    ADD CONSTRAINT participation_evenements_id_evenement_fkey FOREIGN KEY (id_evenement) REFERENCES public.evenements(id_evenement) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4797 (class 2606 OID 16634)
+-- Name: prets prets_id_abonne_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.prets
+    ADD CONSTRAINT prets_id_abonne_fkey FOREIGN KEY (id_abonne) REFERENCES public.abonnes(id_abonne) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4798 (class 2606 OID 16639)
+-- Name: prets prets_id_ouvrage_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.prets
+    ADD CONSTRAINT prets_id_ouvrage_fkey FOREIGN KEY (id_ouvrage) REFERENCES public.ouvrages(id_ouvrage) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4799 (class 2606 OID 16652)
+-- Name: reservations reservations_id_abonne_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reservations
+    ADD CONSTRAINT reservations_id_abonne_fkey FOREIGN KEY (id_abonne) REFERENCES public.abonnes(id_abonne) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4800 (class 2606 OID 16657)
+-- Name: reservations reservations_id_ouvrage_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.reservations
+    ADD CONSTRAINT reservations_id_ouvrage_fkey FOREIGN KEY (id_ouvrage) REFERENCES public.ouvrages(id_ouvrage) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4801 (class 2606 OID 16680)
+-- Name: transferts transferts_bibliotheque_destination_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transferts
+    ADD CONSTRAINT transferts_bibliotheque_destination_fkey FOREIGN KEY (bibliotheque_destination) REFERENCES public.bibliotheques(id_bibliotheque) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4802 (class 2606 OID 16675)
+-- Name: transferts transferts_bibliotheque_origine_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transferts
+    ADD CONSTRAINT transferts_bibliotheque_origine_fkey FOREIGN KEY (bibliotheque_origine) REFERENCES public.bibliotheques(id_bibliotheque) ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4803 (class 2606 OID 16670)
+-- Name: transferts transferts_id_ouvrage_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.transferts
+    ADD CONSTRAINT transferts_id_ouvrage_fkey FOREIGN KEY (id_ouvrage) REFERENCES public.ouvrages(id_ouvrage) ON DELETE CASCADE;
+
+
+-- Completed on 2025-02-04 10:14:32
+
+--
+-- PostgreSQL database dump complete
+--
+
