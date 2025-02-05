@@ -3,10 +3,10 @@
 Pour avoir la base de données sur PGADMIN4 : 
 
 Veuillez télécharger la fichier backup présent sur le github ("BDDR-Projet-La_Team_Rocket")
-Ouvrez PgAdmin4 puis creer une nouvelle base de données.
-Faites un restore puis selectionnez le fichier téléchargé.
-Vous aurez toute la base de données à JOUR.
-Vous devez ajouter les users/rôles à la main (voir ci-dessous) :
+- Ouvrez PgAdmin4 puis creer une nouvelle base de données.
+- Faites un restore puis selectionnez le fichier téléchargé.
+- Vous aurez toute la base de données à JOUR.
+- Vous devez ajouter les users/rôles à la main (voir ci-dessous) :
 
 
 Script pour la création des rôles/users : 
